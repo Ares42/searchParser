@@ -1,11 +1,11 @@
-<% require 'open-uri' %>
+<% 
+ %>
 
-<form>
-	Your Search Here:<br>
-	<input type="text" name=""> 
-	<input type="submit" value="Submit">
-</form>
-
+<%= form_tag("/search", method: "get") do %>
+  <%= label_tag(:q, "Search for:") %>
+  <%= text_field_tag(:q) %>
+  <%= submit_tag("Search") %>
+<% end %>
 
 
 <% # I don't have an API Key for google or bing, but if I did, they would be stored here as constants. DuckDuckGo does not require one.:
@@ -13,14 +13,14 @@
 google_api_key = ' '
 bing_api_key = ' '
 
-duckduckgo_results = Nokogiri::HTML(open("http://api.duckduckgo.com/?q=anything&format=json&pretty=1")) 
-bing_results = Nokogiri::HTML(open("http://api.bing.net/json.aspx?Appid=bing_api_key&query=sushi&sources=web.")) 
-google_results = Nokogiri::HTML(open("https://console.developers.google.com/project/557830632147/apiui/apiview/customsearch/overview")) 
-%>
+duckduckgo_results = HTTParty.get('http://api.duckduckgo.com/?q=anything&format=json&pretty=1')
+bing_results = HTTParty.get('http://api.bing.net/json.aspx?Appid=bing_api_key&query=sushi&sources=web.')
+google_results = HTTParty.get('https://console.developers.google.com/project/557830632147/apiui/apiview/customsearch/overview') 
 
-<%= puts 'duckduckgo_results' %>
-<%= puts 'bing_results' %>
-<%= puts 'google_results' %>
+puts duckduckgo_results.body, duckduckgo_results.code, duckduckgo_results.message, duckduckgo_results.headers.inspect
+puts bing_results.body, bing_results.code, bing_results.message, bing_results.headers.inspect
+puts google_results.body, google_results.code, google_results.message, google_results.headers.inspect
+%>
 
 
 <%
