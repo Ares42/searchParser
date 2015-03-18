@@ -1,0 +1,31 @@
+<% require 'open-uri' %>
+
+<form>
+	Your Search Here:<br>
+	<input type="text" name=""> 
+	<input type="submit" value="Submit">
+</form>
+
+
+
+<% # I don't have an API Key for google or bing, but if I did, they would be stored here as constants. DuckDuckGo does not require one.:
+
+google_api_key = ' '
+bing_api_key = ' '
+
+duckduckgo_results = Nokogiri::HTML(open("http://api.duckduckgo.com/?q=anything&format=json&pretty=1")) 
+bing_results = Nokogiri::HTML(open("http://api.bing.net/json.aspx?Appid=bing_api_key&query=sushi&sources=web.")) 
+google_results = Nokogiri::HTML(open("https://console.developers.google.com/project/557830632147/apiui/apiview/customsearch/overview")) 
+%>
+
+<%= puts 'duckduckgo_results' %>
+<%= puts 'bing_results' %>
+<%= puts 'google_results' %>
+
+
+<%
+# Step 1: Take input from user (search term)
+# Step 2: Input is sent to APIs
+# Step 3: Input is returned from APIs (hopefully in XML/JSON Format. If not, parse into JSON)
+# Step 4: Present information to user 
+%>
